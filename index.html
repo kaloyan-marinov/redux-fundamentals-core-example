@@ -7,7 +7,8 @@
   <body>
     <div>
       <p>
-        Clicked: <span id="value">0</span> times
+        The value of the counter is: <span id="value">0</span>
+        <br/>
         <button id="increment">+</button>
         <button id="decrement">-</button>
         <button id="incrementIfOdd">Increment if odd</button>
@@ -36,11 +37,14 @@
         }
       }
 
-      const store = Redux.createStore(counterReducer)
+      const store = Redux.createStore(
+        counterReducer,
+        window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
+      )
 
       const valueEl = document.getElementById("value")
 
-      function render() {
+      const render = () => {
         const state = store.getState()
         valueEl.innerHTML = state.value.toString()
       }
@@ -53,43 +57,39 @@
         .getElementById("increment")
         .addEventListener(
           "click",
-          function () {
-            store.dispatch({ type: "counter/incremented" })
-          }
+          () => store.dispatch({ type: "counter/incremented" })
         )
 
       document
         .getElementById("decrement")
         .addEventListener(
           "click",
-          function () {
-            store.dispatch({ type: "counter/decremented"})
-          }
+          () => store.dispatch({ type: "counter/decremented"})
         )
       
       document
         .getElementById("incrementIfOdd")
         .addEventListener(
           "click",
-          function() {
+          () => {
             if (store.getState().value % 2 !== 0) {
               store.dispatch({ type: "counter/incremented" })
             }
-          }
+          } // end arrow function
         )
 
       document
         .getElementById("incrementAsync")
         .addEventListener(
           "click",
-          function() {
+          () => {
             setTimeout(
               function () {
                 store.dispatch({ type: "counter/incremented" })
               },
               1000
             )
-          }
+          } // end arrow function
         )
     </script>
   </body>
