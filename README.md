@@ -12,3 +12,11 @@ To try this example, just download the HTML file and open it in your browser.
 
 (The `package.json` in this folder only exists to allow using this folder as a CodeSandbox embed, and is not required
 to run the HTML file.)
+
+# Data flow
+
+When
+
+1. we call `store.dispatch(action)`,
+2. the store runs the **reducer**, calculates the updated state, and
+3. runs the **subscribers** to update the UI.

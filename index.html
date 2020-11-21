@@ -63,7 +63,8 @@
       // Update the UI with the initial data
       render()
 
-      // And subscribe to redraw whenever the data changes in the future
+      // ... pass a subscriber callback function
+      // that will be called every time the store is updated.
       store.subscribe(render)
 
       // Handle user inputs [= interactions with the UI] by "dispatching" action objects,
