@@ -16,12 +16,19 @@
       </p>
     </div>
     <script>
+      // Define an initial state value for the app
       const initialState = {
         value: 0
       }
 
+      // Create a "reducer" function that determines what the new state
+      // should be when something happens in the app
       function counterReducer(state = initialState, action) {
+        // Reducers usually look at the type of action that happened
+        // to decide how to update the state
         switch (action.type) {
+          // If the reducer doesn't care about this action type,
+          // return the existing state unchanged
           case "counter/incremented":
             return {
               ...state,
@@ -37,22 +44,30 @@
         }
       }
 
+      // Create a new Redux store with the `createStore` function,
+      // and use the `counterReducer` for the update logic
       const store = Redux.createStore(
         counterReducer,
         window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
       )
 
+      // Our "user interface" is some text in a single HTML element
       const valueEl = document.getElementById("value")
 
-      const render = () => {
+      function render() {
+        /* Update the UI by reading the latest store state and showing that data. */
         const state = store.getState()
         valueEl.innerHTML = state.value.toString()
       }
 
+      // Update the UI with the initial data
       render()
 
+      // And subscribe to redraw whenever the data changes in the future
       store.subscribe(render)
 
+      // Handle user inputs [= interactions with the UI] by "dispatching" action objects,
+      // which should describe "what happened" in the app
       document
         .getElementById("increment")
         .addEventListener(
